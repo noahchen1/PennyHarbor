@@ -1,22 +1,26 @@
 import "react-native-gesture-handler";
 
 import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, Text, StyleSheet } from "react-native";
-import Wheel from "../wheel/Page";
+import ExpensesPage from "./expenses/Page";
+import IncomePage from "./Income/Page";
+
+const Tab = createBottomTabNavigator();
 
 const HomePage = () => {
-  const expense = [
-    { text: "Food", value: 200, color: "#FF5733" },
-    { text: "Transportation", value: 300, color: "#33FF57" },
-    { text: "Entertainment", value: 150, color: "#5733FF" },
-    { text: "Groceries", value: 250, color: "#009FFF" },
-  ];
-
   return (
-    <View>
-      <Text>Home Page!!</Text>
-      <Wheel expenses={expense} />
-    </View>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          position: "absolute",
+        },
+      }}
+    >
+      <Tab.Screen name="Expenses" component={ExpensesPage} />
+      <Tab.Screen name="Income" component={IncomePage} />
+    </Tab.Navigator>
   );
 };
 

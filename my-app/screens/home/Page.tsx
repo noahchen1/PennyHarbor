@@ -1,29 +1,23 @@
 import "react-native-gesture-handler";
 
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { View, Text, StyleSheet } from "react-native";
 import ExpensesPage from "./expenses/Page";
 import IncomePage from "./Income/Page";
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 const HomePage = () => {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
-          position: "absolute",
-        },
-      }}
-    >
-      <Tab.Screen name="Expenses" component={ExpensesPage} />
-      <Tab.Screen name="Income" component={IncomePage} />
-    </Tab.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="Expenses" component={ExpensesPage} />
+        <Tab.Screen name="Income" component={IncomePage} />
+      </Tab.Navigator>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+});
 
 export default HomePage;

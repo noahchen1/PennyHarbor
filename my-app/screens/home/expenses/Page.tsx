@@ -19,8 +19,8 @@ const ExpensesPage = () => {
     <View>
       <Text>Expenses</Text>
       <Wheel expenses={expenseArr} />
-      {expenseArr.map((expense) => (
-        <Catagory total={total} expense={expense} />
+      {expenseArr.map((expense, index) => (
+        <Catagory total={total} expense={expense} key={index} />
       ))}
     </View>
   );

@@ -4,11 +4,12 @@ Content-Type: application/json
 
 {
     "username": "Noah",
-    "text": "Test Cat2",
-    "value": 22,
+    "text": "Test Cat3",
+    "value": 223,
     "color": "#3366CC",
     "date": "2024-02-25"
 }
+
 
 ###
 GET http://localhost:3000/expenses/Joann

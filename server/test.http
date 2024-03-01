@@ -1,15 +1,13 @@
 POST http://localhost:3000/add
 Content-Type: application/json
 
-
 {
     "username": "Noah",
-    "text": "Test Cat3",
-    "value": 223,
-    "color": "#3366CC",
-    "date": "2024-02-25"
+    "text": "Travel",
+    "value": 550,
+    "color": "#a83254",
+    "date": "2024-02-29"
 }
-
 
 ###
 GET http://localhost:3000/expenses/Joann

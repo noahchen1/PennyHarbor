@@ -11,7 +11,7 @@ const getExpenses = async (req, res) => {
 
     const result = await client.query(query);
 
-    res.json({ success: true, data: result.rows });
+    res.json({ success: true, expenses: result.rows });
   } catch (error) {
     console.error("Error retrieving expenses:", error);
     res.status(500).json({ error: "Internal server error" });

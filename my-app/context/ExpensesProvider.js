@@ -12,13 +12,24 @@ export const ExpensesProvider = ({ children }) => {
 
     const res = await axios.get(URL);
 
+    setExpenses(res.data.expenses);
+  };
+
+  const addExpense = async (data) => {
+    const URL = "http://10.0.0.224:3000/add";
+
+    const res = await axios.post(URL, data);
+    
     return res;
   };
 
   return (
     <ExpensesContext.Provider
       value={{
+        expenses,
+        setExpenses,
         getExpense,
+        addExpense
       }}
     >
       {children}

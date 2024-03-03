@@ -1,6 +1,5 @@
 import "react-native-gesture-handler";
 import { useExpenses } from "../../../context/ExpensesProvider";
-
 import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import Wheel from "../../../components/Wheel";

@@ -12,3 +12,19 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/expenses/Joann
 Content-Type: application/json
+
+###
+POST http://localhost:3000/catagory
+Content-Type: application/json
+
+{
+    "username": "Noah",
+    "category": "Shopping",
+    "iconname": "basket-shopping",
+    "icontype": "FontAwesome6",
+    "color": "#6666ff"
+}
+
+###
+GET http://localhost:3000/catagory/Noah
+Content-Type: application/json

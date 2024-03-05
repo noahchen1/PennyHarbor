@@ -10,6 +10,8 @@ import {
   TextInput,
 } from "react-native";
 
+import { useExpenses } from "../../context/ExpensesProvider";
+
 import ICONS_DATA from "../../constants/icon_data";
 import COLORS_DATA from "../../constants/color_data";
 
@@ -20,27 +22,32 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
 const CategoriesPage = () => {
-  const user = "Noah"
+  const user = "Noah";
+  const { addCatagory, setCategories } = useExpenses();
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedIcon, setSelectedIcon] = useState(null);
-  const [catagoryName, setCatagoryName] = useState("");
+  const [category, setCategory] = useState("");
   const handleColorSelect = (color) => setSelectedColor(color);
   const handleIconSelect = (icon) => setSelectedIcon(icon);
-  const handleSubmit = () => {
-
+  const handleSubmit = async () => {
     const data = {
       username: user,
-      catagory: catagoryName,
+      category: category,
       iconname: selectedIcon.name,
       icontype: selectedIcon.type,
       color: selectedColor,
     };
 
+    if (
+      !user ||
+      !category ||
+      !selectedIcon?.name ||
+      !selectedIcon?.type ||
+      !selectedColor
+    )
+      return;
 
-    if (!user || !catagoryName || !selectedIcon?.name || !selectedIcon?.type || !selectedColor) return
-
-    console.log(data)
-
+    await addCatagory(data);
   };
   return (
     <ScrollView>
@@ -48,8 +55,8 @@ const CategoriesPage = () => {
       <TextInput
         keyboardType="default"
         placeholder="Enter catagory name"
-        value={catagoryName}
-        onChangeText={setCatagoryName}
+        value={category}
+        onChangeText={setCategory}
         style={styles.input}
       />
 

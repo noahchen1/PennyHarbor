@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import { useExpenses } from "../../../context/ExpensesProvider";
 import React, { useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import Wheel from "../../../components/Wheel";
 import Catagory from "../../../components/Catagory";
 
@@ -20,13 +20,13 @@ const ExpensesPage = () => {
     }
   }, []);
   return (
-    <View>
+    <ScrollView>
       <Text>Expenses</Text>
       <Wheel expenses={expenses} />
       {expenses.map((expense, index) => (
         <Catagory total={total} expense={expense} key={index} />
       ))}
-    </View>
+    </ScrollView>
   );
 };
 

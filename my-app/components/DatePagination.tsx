@@ -1,13 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 import { useExpenses } from "../context/ExpensesProvider";
+import getDate from "../util/getDate";
+import getMonth from "../util/getMonth";
+import getWeek from "../util/getWeek";
+import getYear from "../util/getYear";
 
 const DatePagination = () => {
   const { date, setDate, mode, setMode } = useExpenses();
 
-  const incrementDate = (mode) => {
+  const incrementDate = mode => {
     const newDate = new Date(date);
 
     switch (mode) {
@@ -37,7 +41,7 @@ const DatePagination = () => {
     }
   };
 
-  const decrementDate = (mode) => {
+  const decrementDate = mode => {
     const newDate = new Date(date);
 
     switch (mode) {
@@ -67,105 +71,35 @@ const DatePagination = () => {
     }
   };
 
-  const getDate = () => {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    const month = months[date.getMonth()];
-    const day = date.getDate();
-
-    return `${month} ${day}`;
-  };
-
-  const getWeek = () => {
-    const selectedDate = new Date(date);
-    const startOfWeek = new Date(date);
-    const endOfWeek = new Date(date);
-    const startDay = selectedDate.getDate() - selectedDate.getDay();
-    const endDay = startDay + 6;
-
-    startOfWeek.setDate(startDay);
-    endOfWeek.setDate(endDay);
-
-    const options = { month: "long", day: "numeric" };
-    const formattedStartOfWeek = startOfWeek.toLocaleDateString(
-      "en-US",
-      options
-    );
-    const formattedEndOfWeek = endOfWeek.toLocaleDateString("en-US", options);
-
-    return `${formattedStartOfWeek} - ${formattedEndOfWeek}`;
-  };
-
-  const getMonth = () => {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    const month = months[date.getMonth()];
-
-    return `Month of ${month}`;
-  };
-
-  const getYear = () => {
-    const year = date.getFullYear();
-
-    return `${year}`;
-  };
+  const day = getDate(date);
+  const week = getWeek(date);
+  const month = getMonth(date);
+  const year = getYear(date);
 
   return (
     <View style={styles.container}>
       <View style={styles.modeContainer}>
         <TouchableOpacity onPress={() => setMode("Day")}>
-          <Text style={[styles.text, mode === "Day" && styles.selectedMode]}>
-            Day
-          </Text>
+          <Text style={[styles.text, mode === "Day" && styles.selectedMode]}>Day</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setMode("Week")}>
-          <Text style={[styles.text, mode === "Week" && styles.selectedMode]}>
-            Week
-          </Text>
+          <Text style={[styles.text, mode === "Week" && styles.selectedMode]}>Week</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setMode("Month")}>
-          <Text style={[styles.text, mode === "Month" && styles.selectedMode]}>
-            Month
-          </Text>
+          <Text style={[styles.text, mode === "Month" && styles.selectedMode]}>Month</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setMode("Year")}>
-          <Text style={[styles.text, mode === "Year" && styles.selectedMode]}>
-            Year
-          </Text>
+          <Text style={[styles.text, mode === "Year" && styles.selectedMode]}>Year</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.paginationBtnContainer}>
         <TouchableOpacity onPress={() => decrementDate(mode)}>
           <AntDesign name="left" size={24} color="white" />
         </TouchableOpacity>
-        {mode === "Day" && <Text style={styles.text}>{getDate()}</Text>}
-        {mode === "Week" && <Text style={styles.text}>{getWeek()}</Text>}
-        {mode === "Month" && <Text style={styles.text}>{getMonth()}</Text>}
-        {mode === "Year" && <Text style={styles.text}>{getYear()}</Text>}
+        {mode === "Day" && <Text style={styles.text}>{day}</Text>}
+        {mode === "Week" && <Text style={styles.text}>{week}</Text>}
+        {mode === "Month" && <Text style={styles.text}>{month}</Text>}
+        {mode === "Year" && <Text style={styles.text}>{year}</Text>}
         <TouchableOpacity onPress={() => incrementDate(mode)}>
           <AntDesign name="right" size={24} color="white" />
         </TouchableOpacity>

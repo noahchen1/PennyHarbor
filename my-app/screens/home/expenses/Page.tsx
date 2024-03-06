@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import { useExpenses } from "../../../context/ExpensesProvider";
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { Text, ScrollView } from "react-native";
 import Wheel from "../../../components/Wheel";
 import Catagory from "../../../components/Catagory";
 

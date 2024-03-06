@@ -7,6 +7,7 @@ export const useExpenses = () => useContext(ExpensesContext);
 export const ExpensesProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [date, setDate] = useState(new Date());
 
   const getExpense = async (user) => {
     const URL = `http://10.0.0.224:3000/expenses/${user}`;
@@ -50,7 +51,9 @@ export const ExpensesProvider = ({ children }) => {
         addExpense,
         addCatagory,
         getCatagories,
-        setCategories
+        setCategories,
+        date,
+        setDate
       }}
     >
       {children}

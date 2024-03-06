@@ -8,8 +8,9 @@ export const ExpensesProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState("Day");
 
-  const getExpense = async (user) => {
+  const getExpense = async user => {
     const URL = `http://10.0.0.224:3000/expenses/${user}`;
 
     const res = await axios.get(URL);
@@ -17,7 +18,7 @@ export const ExpensesProvider = ({ children }) => {
     setExpenses(res.data.expenses);
   };
 
-  const addExpense = async (data) => {
+  const addExpense = async data => {
     const URL = "http://10.0.0.224:3000/add";
 
     const res = await axios.post(URL, data);
@@ -25,7 +26,7 @@ export const ExpensesProvider = ({ children }) => {
     return res;
   };
 
-  const addCatagory = async (data) => {
+  const addCatagory = async data => {
     const URL = "http://10.0.0.224:3000/catagory";
 
     const res = await axios.post(URL, data);
@@ -33,7 +34,7 @@ export const ExpensesProvider = ({ children }) => {
     return res;
   };
 
-  const getCatagories = async (user) => {
+  const getCatagories = async user => {
     const URL = `http://10.0.0.224:3000/catagory/${user}`;
 
     const res = await axios.get(URL);
@@ -53,7 +54,9 @@ export const ExpensesProvider = ({ children }) => {
         getCatagories,
         setCategories,
         date,
-        setDate
+        setDate,
+        mode,
+        setMode,
       }}
     >
       {children}

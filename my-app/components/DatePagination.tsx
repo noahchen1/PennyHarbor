@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 import { useExpenses } from "../context/ExpensesProvider";
 
 const DatePagination = () => {
-  const { date, setDate } = useExpenses();
-  const [mode, setCurrentMode] = useState("Day");
+  const { date, setDate, mode, setMode } = useExpenses();
 
   const incrementDate = (mode) => {
     const newDate = new Date(date);
@@ -138,22 +137,22 @@ const DatePagination = () => {
   return (
     <View style={styles.container}>
       <View style={styles.modeContainer}>
-        <TouchableOpacity onPress={() => setCurrentMode("Day")}>
+        <TouchableOpacity onPress={() => setMode("Day")}>
           <Text style={[styles.text, mode === "Day" && styles.selectedMode]}>
             Day
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setCurrentMode("Week")}>
+        <TouchableOpacity onPress={() => setMode("Week")}>
           <Text style={[styles.text, mode === "Week" && styles.selectedMode]}>
             Week
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setCurrentMode("Month")}>
+        <TouchableOpacity onPress={() => setMode("Month")}>
           <Text style={[styles.text, mode === "Month" && styles.selectedMode]}>
             Month
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setCurrentMode("Year")}>
+        <TouchableOpacity onPress={() => setMode("Year")}>
           <Text style={[styles.text, mode === "Year" && styles.selectedMode]}>
             Year
           </Text>

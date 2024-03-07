@@ -1,20 +1,23 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const Catagory = ({ total, expense }) => {
-  const percentage = Math.round((expense.value / total) * 100) + "%";
+const Catagory = ({ expenseArr, category, total }) => {
+  console.log(expenseArr);
+  const value = expenseArr.reduce((acc, item) => acc + item.value, 0);
+  const percentage = Math.round((value / total) * 100) + "%";
+
   const dynamicStyles = {
     container: {
-        backgroundColor: expense.color
-    }
-  }
+      backgroundColor: expenseArr[0].color,
+    },
+  };
 
   return (
     <View style={[styles.container, dynamicStyles.container]}>
-      <Text style={styles.text}>{expense.text}</Text>
+      <Text style={styles.text}>{category}</Text>
       <View style={styles.detailContainer}>
         <Text style={styles.text}>{percentage}</Text>
-        <Text style={styles.text}>{expense.value}</Text>
+        <Text style={styles.text}>{value}</Text>
       </View>
     </View>
   );

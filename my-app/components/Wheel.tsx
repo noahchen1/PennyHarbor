@@ -8,6 +8,8 @@ import DatePagination from "./DatePagination";
 const Wheel = ({ expenses }) => {
   const navigation = useNavigation();
   const total = expenses.reduce((acc, expense) => acc + expense.value, 0);
+  const isPlaceholder = total === Infinity;
+  const placeholderMsg = "No Expense";
   const handlePress = () => {
     navigation.navigate("AddExpense");
   };
@@ -41,7 +43,7 @@ const Wheel = ({ expenses }) => {
                 <Text
                   style={{ fontSize: 22, color: "white", fontWeight: "bold" }}
                 >
-                  {total}
+                  {isPlaceholder ? placeholderMsg : total}
                 </Text>
                 <Text style={{ fontSize: 14, color: "white" }}>Excellent</Text>
               </View>

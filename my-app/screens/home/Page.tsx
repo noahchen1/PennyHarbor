@@ -1,7 +1,6 @@
 import "react-native-gesture-handler";
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { StyleSheet } from "react-native";
 import ExpensesPage from "./expenses/Page";
 import IncomePage from "./Income/Page";
 

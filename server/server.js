@@ -9,7 +9,7 @@ const { connectDB } = require("./db");
 const { addExpense } = require("./routes/addExpense");
 const { getExpenses } = require("./routes/getExpenses");
 const { addCatagory } = require("./routes/addCatagory");
-const { getCategories } = require("./routes/getCatagories");
+const { getCategories } = require("./routes/getCategories");
 
 const app = express();
 const PORT = process.env.PORT || 3000;

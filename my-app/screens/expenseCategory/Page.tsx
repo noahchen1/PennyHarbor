@@ -12,12 +12,12 @@ import getYear from "../../util/getYear";
 
 const ExpenseCategoryPage = () => {
   const navigation = useNavigation();
-  const { expenseCategory, categories, getCatagories, date } = useExpenses();
+  const { expenseCategory, categories, getCategories, date } = useExpenses();
   const user = "Noah";
 
   useEffect(() => {
     const getData = navigation.addListener("focus", () => {
-      getCatagories(user);
+      getCategories(user);
     });
 
     return getData;

@@ -1,146 +1,95 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
+
 import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
-import DateTimePicker from "@react-native-community/datetimepicker";
+
 import { TextInput } from "react-native-gesture-handler";
 import { useExpenses } from "../../context/ExpensesProvider";
 import { useNavigation } from "@react-navigation/native";
-
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import formatDateString from "../../util/formatDateString";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import EXPENSE_DATA from "../../constants/expense_data";
 
 const AddExpensePage = () => {
   const navigation = useNavigation();
-
-  const { addExpense, getExpense, getCatagories, categories } = useExpenses();
   const user = "Noah";
 
-  const [amt, setAmt] = useState("");
-  const [category, setCategory] = useState("");
-  const [date, setDate] = useState(new Date());
+  const { addExpense, getExpense, getCategories, categories } = useExpenses();
+  const [expenseAmt, setExpenseAmt] = useState("");
+  const [expenseCategory, setExpenseCategory] = useState("");
+  const [comment, setComment] = useState("");
+  const [expenseDate, setExpenseDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [data, setData] = useState({
-    username: "Noah",
-    text: "",
-    value: 0,
-    color: "#8ba6ca",
-    date: "2024-02-29",
-  });
-
-
+  const [newData, setNewData] = useState({});
 
   const handleAddExpense = async () => {
-    await addExpense(data);
+    await addExpense(newData);
 
     await getExpense(user);
     navigation.navigate("Home");
   };
 
-  const handleCatagory = (category) => setCategory(category);
+  const handleCatagory = category => setExpenseCategory(category);
 
   const onChangeDatePikcer = (event, selectedDate) => {
     const currentDate = selectedDate;
 
     setShowDatePicker(false);
-    setDate(currentDate);
+    setExpenseDate(currentDate);
   };
 
-  const formatDateString = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-  
   useEffect(() => {
-    const getData = navigation.addListener("focus", () => {
-      getCatagories(user);
+    const getCategoryData = navigation.addListener("focus", () => {
+      getCategories(user);
     });
 
-    return getData;
+    return getCategoryData;
   }, [navigation]);
 
   useEffect(() => {
-    setData({
-      username: "Noah",
-      text: category.category,
-      value: parseInt(amt),
-      color: category.color,
-      date: formatDateString(date),
-    });
-  }, [amt, category, date]);
+    const username = user;
+    const text = expenseCategory.category;
+    const value = parseInt(expenseAmt);
+    const color = expenseCategory.color;
+    const date = formatDateString(expenseDate);
+    const data = new EXPENSE_DATA(username, text, value, color, date);
+
+    setNewData(data);
+  }, [expenseAmt, expenseCategory, expenseDate, comment]);
 
   return (
     <View>
       <Text>Add your expense!</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        placeholder="Enter amount"
-        value={amt}
-        onChangeText={setAmt}
-      />
+      <TextInput style={styles.input} keyboardType="numeric" placeholder="Enter amount" value={expenseAmt} onChangeText={setExpenseAmt} />
       <View style={styles.categoryContainer}>
         {categories.map((category, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.category}
-            onPress={() => handleCatagory(category)}
-          >
+          <TouchableOpacity key={index} style={styles.category} onPress={() => handleCatagory(category)}>
             {category.icontype === "FontAwesome6" && (
-              <FontAwesome6
-                name={category.iconname}
-                size={24}
-                color="white"
-                style={[styles.icon, { backgroundColor: category.color }]}
-              />
+              <FontAwesome6 name={category.iconname} size={24} color="white" style={[styles.icon, { backgroundColor: category.color }]} />
             )}
             {category.icontype === "MaterialCommunityIcons" && (
-              <MaterialCommunityIcons
-                name={category.iconname}
-                size={24}
-                color="white"
-                style={[styles.icon, { backgroundColor: category.color }]}
-              />
+              <MaterialCommunityIcons name={category.iconname} size={24} color="white" style={[styles.icon, { backgroundColor: category.color }]} />
             )}
             {category.icontype === "Entypo" && (
-              <Entypo
-                name={category.iconname}
-                size={24}
-                color="white"
-                style={[styles.icon, { backgroundColor: category.color }]}
-              />
+              <Entypo name={category.iconname} size={24} color="white" style={[styles.icon, { backgroundColor: category.color }]} />
             )}
             {category.icontype === "Ionicons" && (
-              <Ionicons
-                name={category.iconname}
-                size={24}
-                color="white"
-                style={[styles.icon, { backgroundColor: category.color }]}
-              />
+              <Ionicons name={category.iconname} size={24} color="white" style={[styles.icon, { backgroundColor: category.color }]} />
             )}
-
             <Text>{category.category}</Text>
           </TouchableOpacity>
         ))}
       </View>
       <View style={styles.dateContainer}>
-        <Button
-          title="Show date picker!"
-          onPress={() => setShowDatePicker(true)}
-        />
+        <Button title="Show date picker!" onPress={() => setShowDatePicker(true)} />
         {showDatePicker && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode="date"
-            is24Hour={true}
-            display="default"
-            onChange={onChangeDatePikcer}
-          />
+          <DateTimePicker testID="dateTimePicker" value={expenseDate} mode="date" is24Hour={true} display="default" onChange={onChangeDatePikcer} />
         )}
       </View>
+      <TextInput placeholder="comment" value={comment} onChangeText={setComment} />
       <Button title="Add Expense" onPress={handleAddExpense} />
     </View>
   );

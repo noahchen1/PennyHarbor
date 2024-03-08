@@ -2,14 +2,13 @@ import React, { useEffect, useState, useCallback } from "react";
 import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { TextInput } from "react-native-gesture-handler";
-import { useExpenses } from "../../../context/ExpensesProvider";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useExpenses } from "../../context/ExpensesProvider";
+import { useNavigation } from "@react-navigation/native";
 
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import Catagory from "../../../components/Catagory";
 
 const AddExpensePage = () => {
   const navigation = useNavigation();
@@ -72,8 +71,6 @@ const AddExpensePage = () => {
     });
   }, [amt, category, date]);
 
-
-  console.log(data)
   return (
     <View>
       <Text>Add your expense!</Text>

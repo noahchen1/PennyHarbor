@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { useExpenses } from "../../../context/ExpensesProvider";
+import { useExpenses } from "../../context/ExpensesProvider";
 import { useNavigation } from "@react-navigation/native";
 
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import getDate from "../../../util/getDate";
-import getYear from "../../../util/getYear";
+import getDate from "../../util/getDate";
+import getYear from "../../util/getYear";
 
-const ExpenseCategoryViewer = () => {
+const ExpenseCategoryPage = () => {
   const navigation = useNavigation();
   const { expenseCategory, categories, getCatagories, date } = useExpenses();
   const user = "Noah";
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ExpenseCategoryViewer;
+export default ExpenseCategoryPage;

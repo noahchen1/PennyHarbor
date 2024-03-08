@@ -2,9 +2,9 @@ import * as React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import HomePage from "./screens/home/Page";
-import CategoriesPage from "./screens/categories/Page";
-import AddExpensePage from "./screens/home/addExpense/Page";
-import ExpenseCategoryViewer from "./screens/categories/expenseCategoryViewer/Page";
+import CategoriesPage from "./screens/addCategory/Page";
+import AddExpensePage from "./screens/addExpense/Page";
+import ExpenseCategoryPage from "./screens/expenseCategory/Page";
 import { ExpensesProvider } from "./context/ExpensesProvider";
 
 const Drawer = createDrawerNavigator();
@@ -34,7 +34,7 @@ export default function App() {
           />
           <Drawer.Screen
             name="expenseCategory"
-            component={ExpenseCategoryViewer}
+            component={ExpenseCategoryPage}
             options={{
               headerTitle: "",
               drawerItemStyle: { height: 0 },

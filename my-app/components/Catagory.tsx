@@ -1,8 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useExpenses } from "../context/ExpensesProvider";
+import { useNavigation } from "@react-navigation/native";
 
 const Catagory = ({ expenseArr, category, total }) => {
-  console.log(expenseArr);
+  const { setExpenseCategory } = useExpenses();
+  const navigation = useNavigation();
   const value = expenseArr.reduce((acc, item) => acc + item.value, 0);
   const percentage = Math.round((value / total) * 100) + "%";
 
@@ -12,14 +15,21 @@ const Catagory = ({ expenseArr, category, total }) => {
     },
   };
 
+  const handlePress = () => {
+    setExpenseCategory(expenseArr);
+    navigation.navigate("expenseCategory");
+  };
+
   return (
-    <View style={[styles.container, dynamicStyles.container]}>
-      <Text style={styles.text}>{category}</Text>
-      <View style={styles.detailContainer}>
-        <Text style={styles.text}>{percentage}</Text>
-        <Text style={styles.text}>{value}</Text>
+    <TouchableOpacity onPress={() => handlePress()}>
+      <View style={[styles.container, dynamicStyles.container]}>
+        <Text style={styles.text}>{category}</Text>
+        <View style={styles.detailContainer}>
+          <Text style={styles.text}>{percentage}</Text>
+          <Text style={styles.text}>{value}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -1,0 +1,60 @@
+{
+  "Food": [
+    {
+      "color": "#FF5733",
+      "date": "2024-02-29T05:00:00.000Z",
+      "id": 17,
+      "text": "Food",
+      "username": "Noah",
+      "value": 200
+    },
+    {
+      "color": "#8ba6ca",
+      "date": "2024-02-29T05:00:00.000Z",
+      "id": 30,
+      "text": "Food",
+      "username": "Noah",
+      "value": 20
+    }
+  ],
+  "Groceries": [
+    {
+      "color": "#009FFF",
+      "date": "2024-02-29T05:00:00.000Z",
+      "id": 20,
+      "text": "Groceries",
+      "username": "Noah",
+      "value": 250
+    }
+  ],
+  "Something": [
+    {
+      "color": "#8ba6ca",
+      "date": "2024-02-29T05:00:00.000Z",
+      "id": 31,
+      "text": "Something",
+      "username": "Noah",
+      "value": 356
+    }
+  ],
+  "Transportation": [
+    {
+      "color": "#33FF57",
+      "date": "2024-02-29T05:00:00.000Z",
+      "id": 18,
+      "text": "Transportation",
+      "username": "Noah",
+      "value": 300
+    }
+  ],
+  "Travel": [
+    {
+      "color": "#a83254",
+      "date": "2024-02-29T05:00:00.000Z",
+      "id": 21,
+      "text": "Travel",
+      "username": "Noah",
+      "value": 550
+    }
+  ]
+}

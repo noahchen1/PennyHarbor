@@ -16,7 +16,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 const CategoriesPage = () => {
   const user = "Noah";
-  const { addCatagory, setCategories } = useExpenses();
+  const { addCatagory } = useExpenses();
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [category, setCategory] = useState("");

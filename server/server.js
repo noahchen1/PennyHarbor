@@ -8,7 +8,7 @@ const allowedOrigins = require("./config/allowedOrigins");
 const { connectDB } = require("./db");
 const { addExpense } = require("./routes/addExpense");
 const { getExpenses } = require("./routes/getExpenses");
-const { addCatagory } = require("./routes/addCatagory");
+const { addCategory } = require("./routes/addCategory");
 const { getCategories } = require("./routes/getCategories");
 
 const app = express();
@@ -19,8 +19,8 @@ app.use(bodyParser.json());
 
 app.post("/add", addExpense);
 app.get("/expenses/:username", getExpenses);
-app.post("/catagory", addCatagory);
-app.get("/catagory/:username", getCategories);
+app.post("/category", addCategory);
+app.get("/category/:username", getCategories);
 
 const startServer = async () => {
   await connectDB();

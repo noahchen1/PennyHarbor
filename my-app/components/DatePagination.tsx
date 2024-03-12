@@ -9,12 +9,12 @@ import getWeek from "../util/getWeek";
 import getYear from "../util/getYear";
 
 const DatePagination = () => {
-  const { date, setDate, mode, setMode } = useExpenses();
+  const { date, setDate, dateDisplay, setDateDisplay } = useExpenses();
 
-  const incrementDate = mode => {
+  const incrementDate = dateDisplay => {
     const newDate = new Date(date);
 
-    switch (mode) {
+    switch (dateDisplay) {
       case "Day":
         newDate.setDate(newDate.getDate() + 1);
         setDate(newDate);
@@ -41,10 +41,10 @@ const DatePagination = () => {
     }
   };
 
-  const decrementDate = mode => {
+  const decrementDate = dateDisplay => {
     const newDate = new Date(date);
 
-    switch (mode) {
+    switch (dateDisplay) {
       case "Day":
         newDate.setDate(newDate.getDate() - 1);
         setDate(newDate);
@@ -79,28 +79,28 @@ const DatePagination = () => {
   return (
     <View style={styles.container}>
       <View style={styles.modeContainer}>
-        <TouchableOpacity onPress={() => setMode("Day")}>
-          <Text style={[styles.text, mode === "Day" && styles.selectedMode]}>Day</Text>
+        <TouchableOpacity onPress={() => setDateDisplay("Day")}>
+          <Text style={[styles.text, dateDisplay === "Day" && styles.selectedMode]}>Day</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setMode("Week")}>
-          <Text style={[styles.text, mode === "Week" && styles.selectedMode]}>Week</Text>
+        <TouchableOpacity onPress={() => setDateDisplay("Week")}>
+          <Text style={[styles.text, dateDisplay === "Week" && styles.selectedMode]}>Week</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setMode("Month")}>
-          <Text style={[styles.text, mode === "Month" && styles.selectedMode]}>Month</Text>
+        <TouchableOpacity onPress={() => setDateDisplay("Month")}>
+          <Text style={[styles.text, dateDisplay === "Month" && styles.selectedMode]}>Month</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setMode("Year")}>
-          <Text style={[styles.text, mode === "Year" && styles.selectedMode]}>Year</Text>
+        <TouchableOpacity onPress={() => setDateDisplay("Year")}>
+          <Text style={[styles.text, dateDisplay === "Year" && styles.selectedMode]}>Year</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.paginationBtnContainer}>
-        <TouchableOpacity onPress={() => decrementDate(mode)}>
+        <TouchableOpacity onPress={() => decrementDate(dateDisplay)}>
           <AntDesign name="left" size={24} color="white" />
         </TouchableOpacity>
-        {mode === "Day" && <Text style={styles.text}>{day}</Text>}
-        {mode === "Week" && <Text style={styles.text}>{week}</Text>}
-        {mode === "Month" && <Text style={styles.text}>{month}</Text>}
-        {mode === "Year" && <Text style={styles.text}>{year}</Text>}
-        <TouchableOpacity onPress={() => incrementDate(mode)}>
+        {dateDisplay === "Day" && <Text style={styles.text}>{day}</Text>}
+        {dateDisplay === "Week" && <Text style={styles.text}>{week}</Text>}
+        {dateDisplay === "Month" && <Text style={styles.text}>{month}</Text>}
+        {dateDisplay === "Year" && <Text style={styles.text}>{year}</Text>}
+        <TouchableOpacity onPress={() => incrementDate(dateDisplay)}>
           <AntDesign name="right" size={24} color="white" />
         </TouchableOpacity>
       </View>

@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from "react";
 import axios from "axios";
+import { createContext, useContext, useState } from "react";
+import BASE_URL from "../constants/url";
 
 const ExpensesContext = createContext();
 export const useExpenses = () => useContext(ExpensesContext);
@@ -9,34 +10,34 @@ export const ExpensesProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [expenseCategory, setExpenseCategory] = useState([]);
   const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("Day");
+  const [dateDisplay, setDateDisplay] = useState("Day");
 
-  const getExpense = async user => {
-    const URL = `http://10.0.0.224:3000/expenses/${user}`;
+  const getExpense = async (user) => {
+    const URL = `${BASE_URL}/expenses/${user}`;
 
     const res = await axios.get(URL);
 
     setExpenses(res.data.expenses);
   };
 
-  const addExpense = async data => {
-    const URL = "http://10.0.0.224:3000/add";
+  const addExpense = async (data) => {
+    const URL = `${BASE_URL}/add`;
 
     const res = await axios.post(URL, data);
 
-    return res;
+    setExpenses(res.data.expenses);
   };
 
-  const addCatagory = async data => {
-    const URL = "http://10.0.0.224:3000/catagory";
+  const addCatagory = async (data) => {
+    const URL = `${BASE_URL}/category`;
 
     const res = await axios.post(URL, data);
 
-    return res;
+    setCategories(res.data.categories);
   };
 
-  const getCategories = async user => {
-    const URL = `http://10.0.0.224:3000/catagory/${user}`;
+  const getCategories = async (user) => {
+    const URL = `${BASE_URL}/category/${user}`;
 
     const res = await axios.get(URL);
 
@@ -56,8 +57,8 @@ export const ExpensesProvider = ({ children }) => {
         setCategories,
         date,
         setDate,
-        mode,
-        setMode,
+        dateDisplay,
+        setDateDisplay,
         expenseCategory,
         setExpenseCategory,
       }}

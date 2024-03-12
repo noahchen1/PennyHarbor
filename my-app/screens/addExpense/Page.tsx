@@ -28,7 +28,6 @@ const AddExpensePage = () => {
   const handleAddExpense = async () => {
     await addExpense(newData);
 
-    await getExpense(user);
     navigation.navigate("Home");
   };
 

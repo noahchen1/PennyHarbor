@@ -1,5 +1,6 @@
 const getSelectedExpenses = (expenses, date, dateDisplay) => {
-  const selectedExpenses = expenses.filter((expense) => {
+  const selectedExpenses = expenses?.filter((expense) => {
+
     const timestamp = new Date(expense.date);
 
     switch (dateDisplay) {

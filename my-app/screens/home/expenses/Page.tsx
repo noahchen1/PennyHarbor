@@ -8,6 +8,7 @@ import getSelectedExpenses from "../../../util/getSelectedExpenses";
 import getGroupExpenses from "../../../util/getGroupExpenses";
 import WHEEL_PLACEHOLDER from "../../../constants/wheel_placeholder_data";
 
+
 const ExpensesPage = () => {
   const { expenses, date, dateDisplay } = useExpenses();
   const [currentExpenses, setCurrentExpenses] = useState([]);
@@ -16,17 +17,17 @@ const ExpensesPage = () => {
   const total = expenses.reduce((acc, expense) => acc + expense.value, 0);
 
   useEffect(() => {
-    const selectedExpenses = getSelectedExpenses(expenses, date, dateDisplay);
-    const noExpense = !selectedExpenses.length;
+      const selectedExpenses = getSelectedExpenses(expenses, date, dateDisplay);
+      const noExpense = !selectedExpenses.length;
 
-    if (noExpense) {
-      setCurrentExpenses(WHEEL_PLACEHOLDER);
-      setExpenseFound(false);
-    } else {
-      setCurrentExpenses(selectedExpenses);
-      setGroupExpenses(getGroupExpenses(selectedExpenses));
-      setExpenseFound(true);
-    }
+      if (noExpense) {
+        setCurrentExpenses(WHEEL_PLACEHOLDER);
+        setExpenseFound(false);
+      } else {
+        setCurrentExpenses(selectedExpenses);
+        setGroupExpenses(getGroupExpenses(selectedExpenses));
+        setExpenseFound(true);
+      }
   }, [date, dateDisplay, expenses]);
 
   return (

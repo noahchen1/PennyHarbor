@@ -69,6 +69,9 @@ const ExpenseCategoryPage = () => {
             </View>
             <Text>${expense.value}</Text>
           </View>
+          <View>
+            <Text>{expense.comment}</Text>
+          </View>
         </View>
       ))}
     </>

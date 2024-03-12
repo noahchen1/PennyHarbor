@@ -17,7 +17,7 @@ const AddExpensePage = () => {
   const navigation = useNavigation();
   const user = "Noah";
 
-  const { addExpense, getExpense, getCategories, categories } = useExpenses();
+  const { addExpense, getCategories, categories, expenses } = useExpenses();
   const [expenseAmt, setExpenseAmt] = useState("");
   const [expenseCategory, setExpenseCategory] = useState("");
   const [comment, setComment] = useState("");
@@ -25,13 +25,13 @@ const AddExpensePage = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [newData, setNewData] = useState({});
 
-  const handleAddExpense = async () => {
-    await addExpense(newData);
+  const handleAddExpense = () => {
+    addExpense(newData);
 
     navigation.navigate("Home");
   };
 
-  const handleCatagory = category => setExpenseCategory(category);
+  const handleCatagory = (category) => setExpenseCategory(category);
 
   const onChangeDatePikcer = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -54,7 +54,7 @@ const AddExpensePage = () => {
     const value = parseInt(expenseAmt);
     const color = expenseCategory.color;
     const date = formatDateString(expenseDate);
-    const data = new EXPENSE_DATA(username, text, value, color, date);
+    const data = new EXPENSE_DATA(username, text, value, color, date, comment);
 
     setNewData(data);
   }, [expenseAmt, expenseCategory, expenseDate, comment]);
@@ -62,33 +62,78 @@ const AddExpensePage = () => {
   return (
     <View>
       <Text>Add your expense!</Text>
-      <TextInput style={styles.input} keyboardType="numeric" placeholder="Enter amount" value={expenseAmt} onChangeText={setExpenseAmt} />
+      <TextInput
+        style={styles.input}
+        keyboardType="numeric"
+        placeholder="Enter amount"
+        value={expenseAmt}
+        onChangeText={setExpenseAmt}
+      />
       <View style={styles.categoryContainer}>
         {categories.map((category, index) => (
-          <TouchableOpacity key={index} style={styles.category} onPress={() => handleCatagory(category)}>
+          <TouchableOpacity
+            key={index}
+            style={styles.category}
+            onPress={() => handleCatagory(category)}
+          >
             {category.icontype === "FontAwesome6" && (
-              <FontAwesome6 name={category.iconname} size={24} color="white" style={[styles.icon, { backgroundColor: category.color }]} />
+              <FontAwesome6
+                name={category.iconname}
+                size={24}
+                color="white"
+                style={[styles.icon, { backgroundColor: category.color }]}
+              />
             )}
             {category.icontype === "MaterialCommunityIcons" && (
-              <MaterialCommunityIcons name={category.iconname} size={24} color="white" style={[styles.icon, { backgroundColor: category.color }]} />
+              <MaterialCommunityIcons
+                name={category.iconname}
+                size={24}
+                color="white"
+                style={[styles.icon, { backgroundColor: category.color }]}
+              />
             )}
             {category.icontype === "Entypo" && (
-              <Entypo name={category.iconname} size={24} color="white" style={[styles.icon, { backgroundColor: category.color }]} />
+              <Entypo
+                name={category.iconname}
+                size={24}
+                color="white"
+                style={[styles.icon, { backgroundColor: category.color }]}
+              />
             )}
             {category.icontype === "Ionicons" && (
-              <Ionicons name={category.iconname} size={24} color="white" style={[styles.icon, { backgroundColor: category.color }]} />
+              <Ionicons
+                name={category.iconname}
+                size={24}
+                color="white"
+                style={[styles.icon, { backgroundColor: category.color }]}
+              />
             )}
             <Text>{category.category}</Text>
           </TouchableOpacity>
         ))}
       </View>
       <View style={styles.dateContainer}>
-        <Button title="Show date picker!" onPress={() => setShowDatePicker(true)} />
+        <Button
+          title="Show date picker!"
+          onPress={() => setShowDatePicker(true)}
+        />
         {showDatePicker && (
-          <DateTimePicker testID="dateTimePicker" value={expenseDate} mode="date" is24Hour={true} display="default" onChange={onChangeDatePikcer} />
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={expenseDate}
+            mode="date"
+            is24Hour={true}
+            display="default"
+            onChange={onChangeDatePikcer}
+          />
         )}
       </View>
-      <TextInput placeholder="comment" value={comment} onChangeText={setComment} />
+      <TextInput
+        style={styles.comment}
+        placeholder="comment"
+        value={comment}
+        onChangeText={setComment}
+      />
       <Button title="Add Expense" onPress={handleAddExpense} />
     </View>
   );
@@ -126,6 +171,9 @@ const styles = StyleSheet.create({
   },
   dateContainer: {
     marginVertical: 10,
+  },
+  comment: {
+    marginVertical: 20,
   },
 });
 

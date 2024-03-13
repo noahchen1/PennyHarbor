@@ -12,10 +12,6 @@ import {
 import { TextInput } from "react-native-gesture-handler";
 import { useExpenses } from "../../context/ExpensesProvider";
 import { useNavigation } from "@react-navigation/native";
-import { FontAwesome6 } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
 import formatDateString from "../../util/formatDateString";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import EXPENSE_DATA from "../../constants/expense_data";
@@ -34,12 +30,6 @@ const AddExpensePage = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [newData, setNewData] = useState({});
 
-  const iconComponents = {
-    FontAwesome6,
-    Entypo,
-    MaterialCommunityIcons,
-    Ionicons,
-  };
 
 
   const handleCatagory = (category) => setExpenseCategory(category);
@@ -58,7 +48,6 @@ const AddExpensePage = () => {
     setExpenseDate(currentDate);
   };
 
-  console.log(expenseDate)
   useEffect(() => {
     const getCategoryData = navigation.addListener("focus", () => {
       getCategories(user);
@@ -98,7 +87,7 @@ const AddExpensePage = () => {
             style={styles.category}
             onPress={() => handleCatagory(item)}
           >
-            <Icon iconComponents={iconComponents} category={item} />
+            <Icon icon={item} selectedIcon={expenseCategory} selectedColor={expenseCategory.color}/>
           </TouchableOpacity>
         )}
       />

@@ -1,4 +1,4 @@
-const WHEEL_PLACEHOLDER = [
+const PLACEHOLDER_EXPENSE = [
   {
     color: "#009FFF",
     text: "No Data",
@@ -6,4 +6,4 @@ const WHEEL_PLACEHOLDER = [
   },
 ];
 
-export default WHEEL_PLACEHOLDER;
+export default PLACEHOLDER_EXPENSE;

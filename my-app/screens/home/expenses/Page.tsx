@@ -6,38 +6,47 @@ import Wheel from "../../../components/Wheel";
 import Catagory from "../../../components/Catagory";
 import getSelectedExpenses from "../../../util/getSelectedExpenses";
 import getGroupExpenses from "../../../util/getGroupExpenses";
-import WHEEL_PLACEHOLDER from "../../../constants/wheel_placeholder_data";
-
+import PLACEHOLDER_EXPENSE from "../../../constants/placeholder_expense";
 
 const ExpensesPage = () => {
   const { expenses, date, dateDisplay } = useExpenses();
-  const [currentExpenses, setCurrentExpenses] = useState([]);
-  const [groupExpenses, setGroupExpenses] = useState({});
-  const [expenseFound, setExpenseFound] = useState(false);
+  const [expenseData, setExpenseData] = useState({
+    currentExpenses: [],
+    groupExpenses: {},
+    expenseFound: false,
+  });
+
   const total = expenses.reduce((acc, expense) => acc + expense.value, 0);
 
   useEffect(() => {
-      const selectedExpenses = getSelectedExpenses(expenses, date, dateDisplay);
-      const noExpense = !selectedExpenses.length;
+    const selectedExpenses = getSelectedExpenses(expenses, date, dateDisplay);
+    const noExpense = !selectedExpenses.length;
 
-      if (noExpense) {
-        setCurrentExpenses(WHEEL_PLACEHOLDER);
-        setExpenseFound(false);
-      } else {
-        setCurrentExpenses(selectedExpenses);
-        setGroupExpenses(getGroupExpenses(selectedExpenses));
-        setExpenseFound(true);
-      }
+    if (noExpense) {
+      setExpenseData({
+        currentExpenses: PLACEHOLDER_EXPENSE,
+        groupExpenses: {},
+        expenseFound: false,
+      });
+    } else {
+      const groupExpenses = getGroupExpenses(selectedExpenses);
+
+      setExpenseData({
+        currentExpenses: selectedExpenses,
+        groupExpenses: groupExpenses,
+        expenseFound: true,
+      });
+    }
   }, [date, dateDisplay, expenses]);
 
   return (
     <ScrollView>
       <Text>Expenses</Text>
-      <Wheel expenses={currentExpenses} />
-      {expenseFound &&
-        Object.keys(groupExpenses).map((key, index) => (
+      <Wheel expenses={expenseData.currentExpenses} />
+      {expenseData.expenseFound &&
+        Object.keys(expenseData.groupExpenses).map((key, index) => (
           <Catagory
-            expenseArr={groupExpenses[key]}
+            expenseArr={expenseData.groupExpenses[key]}
             category={key}
             total={total}
             key={index}

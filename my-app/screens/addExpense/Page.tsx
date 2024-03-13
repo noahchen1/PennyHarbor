@@ -1,6 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
-import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 
 import { TextInput } from "react-native-gesture-handler";
 import { useExpenses } from "../../context/ExpensesProvider";
@@ -12,12 +19,14 @@ import { Ionicons } from "@expo/vector-icons";
 import formatDateString from "../../util/formatDateString";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import EXPENSE_DATA from "../../constants/expense_data";
+import Icon from "../../components/Icon";
 
 const AddExpensePage = () => {
   const navigation = useNavigation();
   const user = "Noah";
 
-  const { addExpense, getCategories, categories, expenses } = useExpenses();
+  const { addExpense, getCategories, categories } = useExpenses();
+
   const [expenseAmt, setExpenseAmt] = useState("");
   const [expenseCategory, setExpenseCategory] = useState("");
   const [comment, setComment] = useState("");
@@ -25,21 +34,31 @@ const AddExpensePage = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [newData, setNewData] = useState({});
 
+  const iconComponents = {
+    FontAwesome6,
+    Entypo,
+    MaterialCommunityIcons,
+    Ionicons,
+  };
+
+
+  const handleCatagory = (category) => setExpenseCategory(category);
+
   const handleAddExpense = () => {
     addExpense(newData);
 
     navigation.navigate("Home");
   };
 
-  const handleCatagory = (category) => setExpenseCategory(category);
 
-  const onChangeDatePikcer = (event, selectedDate) => {
-    const currentDate = selectedDate;
+  const onChangeDatePicker = (event, selectedDate) => {
+    const currentDate = selectedDate || expenseDate;
 
     setShowDatePicker(false);
     setExpenseDate(currentDate);
   };
 
+  console.log(expenseDate)
   useEffect(() => {
     const getCategoryData = navigation.addListener("focus", () => {
       getCategories(user);
@@ -69,49 +88,20 @@ const AddExpensePage = () => {
         value={expenseAmt}
         onChangeText={setExpenseAmt}
       />
-      <View style={styles.categoryContainer}>
-        {categories.map((category, index) => (
+      <FlatList
+        data={categories}
+        keyExtractor={(item) => item.id}
+        horizontal
+        contentContainerStyle={styles.categoryContainer}
+        renderItem={({ item }) => (
           <TouchableOpacity
-            key={index}
             style={styles.category}
-            onPress={() => handleCatagory(category)}
+            onPress={() => handleCatagory(item)}
           >
-            {category.icontype === "FontAwesome6" && (
-              <FontAwesome6
-                name={category.iconname}
-                size={24}
-                color="white"
-                style={[styles.icon, { backgroundColor: category.color }]}
-              />
-            )}
-            {category.icontype === "MaterialCommunityIcons" && (
-              <MaterialCommunityIcons
-                name={category.iconname}
-                size={24}
-                color="white"
-                style={[styles.icon, { backgroundColor: category.color }]}
-              />
-            )}
-            {category.icontype === "Entypo" && (
-              <Entypo
-                name={category.iconname}
-                size={24}
-                color="white"
-                style={[styles.icon, { backgroundColor: category.color }]}
-              />
-            )}
-            {category.icontype === "Ionicons" && (
-              <Ionicons
-                name={category.iconname}
-                size={24}
-                color="white"
-                style={[styles.icon, { backgroundColor: category.color }]}
-              />
-            )}
-            <Text>{category.category}</Text>
+            <Icon iconComponents={iconComponents} category={item} />
           </TouchableOpacity>
-        ))}
-      </View>
+        )}
+      />
       <View style={styles.dateContainer}>
         <Button
           title="Show date picker!"
@@ -124,7 +114,7 @@ const AddExpensePage = () => {
             mode="date"
             is24Hour={true}
             display="default"
-            onChange={onChangeDatePikcer}
+            onChange={onChangeDatePicker}
           />
         )}
       </View>
@@ -147,22 +137,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 10,
   },
-  icon: {
-    width: 50,
-    height: 50,
-    textAlign: "center",
-    textAlignVertical: "center",
-    borderRadius: 30,
-    marginHorizontal: 5,
-    marginVertical: 5,
-  },
   selectedIcon: {
     borderWidth: 1,
   },
   categoryContainer: {
     flexDirection: "row",
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
     marginVertical: 20,
+    width: '100%',
+    justifyContent: "flex-start",
   },
   category: {
     justifyContent: "center",

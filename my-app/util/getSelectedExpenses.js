@@ -1,6 +1,25 @@
 const getSelectedExpenses = (expenses, date, dateDisplay) => {
-  const selectedExpenses = expenses?.filter((expense) => {
+  const getStartOfWeek = (date) => {
+    const startOfWeek = new Date(date);
+    startOfWeek.setDate(date.getDate() - date.getDay());
+    return startOfWeek;
+  };
 
+  const getEndOfWeek = (date) => {
+    const endOfWeek = new Date(date);
+    endOfWeek.setDate(date.getDate() - date.getDay() + 6);
+    return endOfWeek;
+  };
+
+  const getStartOfMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth(), 1);
+  };
+
+  const getEndOfMonth = (date) => {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  };
+
+  const selectedExpenses = expenses.filter((expense) => {
     const timestamp = new Date(expense.date);
 
     switch (dateDisplay) {
@@ -12,19 +31,14 @@ const getSelectedExpenses = (expenses, date, dateDisplay) => {
         );
 
       case "Week":
-        const startOfWeek = new Date(date);
-        startOfWeek.setDate(date.getDate() - date.getDay());
-
-        const endOfWeek = new Date(date);
-        endOfWeek.setDate(startOfWeek.getDate() + 6);
-
-        return expense.date >= startOfWeek && expense.date <= endOfWeek;
+        const startOfWeek = getStartOfWeek(date);
+        const endOfWeek = getEndOfWeek(date);
+        return timestamp >= startOfWeek && timestamp <= endOfWeek;
 
       case "Month":
-        return (
-          date.getMonth() === timestamp.getMonth() &&
-          date.getFullYear() === timestamp.getFullYear()
-        );
+        const startOfMonth = getStartOfMonth(date);
+        const endOfMonth = getEndOfMonth(date);
+        return timestamp >= startOfMonth && timestamp <= endOfMonth;
 
       case "Year":
         return date.getFullYear() === timestamp.getFullYear();

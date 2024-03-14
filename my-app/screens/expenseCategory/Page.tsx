@@ -3,12 +3,9 @@ import { View, Text, StyleSheet } from "react-native";
 import { useExpenses } from "../../context/ExpensesProvider";
 import { useNavigation } from "@react-navigation/native";
 
-import { FontAwesome6 } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
 import getDate from "../../util/getDate";
 import getYear from "../../util/getYear";
+import Icon from "../../components/Icon";
 
 const ExpenseCategoryPage = () => {
   const navigation = useNavigation();
@@ -16,15 +13,15 @@ const ExpenseCategoryPage = () => {
   const user = "Noah";
 
   useEffect(() => {
-    const getData = navigation.addListener("focus", () => {
-      getCategories(user);
-    });
+    const getData = navigation.addListener("focus", () => getCategories(user));
 
-    return getData;
+    getData();
   }, [navigation]);
 
   const category = expenseCategory[0].text;
   const iconData = categories.find((obj) => obj.category === category);
+
+  console.log(iconData);
 
   return (
     <>
@@ -33,38 +30,11 @@ const ExpenseCategoryPage = () => {
           <Text>{`${getDate(date)}` + ` ${getYear(date)}`}</Text>
           <View style={styles.expenseContainer}>
             <View style={styles.leftContainer}>
-              {iconData?.icontype === "FontAwesome6" && (
-                <FontAwesome6
-                  name={iconData.iconname}
-                  size={24}
-                  color="white"
-                  style={[styles.icon, { backgroundColor: iconData.color }]}
-                />
-              )}
-              {iconData?.icontype === "MaterialCommunityIcons" && (
-                <MaterialCommunityIcons
-                  name={iconData.iconname}
-                  size={24}
-                  color="white"
-                  style={[styles.icon, { backgroundColor: iconData.color }]}
-                />
-              )}
-              {iconData?.icontype === "Entypo" && (
-                <Entypo
-                  name={iconData.iconname}
-                  size={24}
-                  color="white"
-                  style={[styles.icon, { backgroundColor: iconData.color }]}
-                />
-              )}
-              {iconData?.icontype === "Ionicons" && (
-                <Ionicons
-                  name={iconData.iconname}
-                  size={24}
-                  color="white"
-                  style={[styles.icon, { backgroundColor: iconData.color }]}
-                />
-              )}
+              <Icon
+                icon={iconData}
+                selectedIcon={iconData}
+                selectedColor={iconData.color}
+              />
               <Text>{expense.text}</Text>
             </View>
             <Text>${expense.value}</Text>

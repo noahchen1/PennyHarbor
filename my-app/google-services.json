@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "887438819979",
+    "project_id": "penny-harbor-user-credentials",
+    "storage_bucket": "penny-harbor-user-credentials.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887438819979:android:fe7c298b00ba3c10578a8e",
+        "android_client_info": {
+          "package_name": "com.noah.pennyharbor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMtAgtaUAUs9DamaG0pAhAE7S2lL7hFe4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

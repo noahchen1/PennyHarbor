@@ -4,10 +4,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const allowedOrigins = require("./config/allowedOrigins");
-const firebase = require("firebase-admin");
-const serviceAccount = require("./penny-harbor-user-credentials-firebase-adminsdk-x3gsj-1b788ad71c.json");
 
 const { connectDB } = require("./db");
+const { connectAuthdb } = require("./authdb");
 const { addExpense } = require("./routes/addExpense");
 const { getExpenses } = require("./routes/getExpenses");
 const { addCategory } = require("./routes/addCategory");
@@ -29,11 +28,8 @@ app.post("/register", register);
 app.post("/signin", signin);
 
 const startServer = async () => {
-  // await connectDB();
-
-  firebase.initializeApp({
-    credential: firebase.credential.cert(serviceAccount),
-  });
+  await connectDB();
+  await connectAuthdb();
 
   try {
     app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

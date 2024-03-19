@@ -33,3 +33,6 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# firebase credentials
+penny-harbor-user-credentials-firebase-adminsdk-x3gsj-12f672c32c.json

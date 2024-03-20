@@ -30,8 +30,6 @@ const AddExpensePage = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [newData, setNewData] = useState({});
 
-
-
   const handleCatagory = (category) => setExpenseCategory(category);
 
   const handleAddExpense = () => {
@@ -39,7 +37,6 @@ const AddExpensePage = () => {
 
     navigation.navigate("Home");
   };
-
 
   const onChangeDatePicker = (event, selectedDate) => {
     const currentDate = selectedDate || expenseDate;
@@ -87,7 +84,11 @@ const AddExpensePage = () => {
             style={styles.category}
             onPress={() => handleCatagory(item)}
           >
-            <Icon icon={item} selectedIcon={expenseCategory} selectedColor={expenseCategory.color}/>
+            <Icon
+              icon={item}
+              selectedIcon={expenseCategory}
+              selectedColor={expenseCategory.color}
+            />
           </TouchableOpacity>
         )}
       />
@@ -131,9 +132,9 @@ const styles = StyleSheet.create({
   },
   categoryContainer: {
     flexDirection: "row",
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
     marginVertical: 20,
-    width: '100%',
+    width: "100%",
     justifyContent: "flex-start",
   },
   category: {

@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Button, StyleSheet, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigation } from "@react-navigation/native";
+import { useExpenses } from "../../../context/ExpensesProvider";
 
 const SignInPage = () => {
+  const navigation = useNavigation();
+  const { setUser } = useExpenses();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,8 +16,10 @@ const SignInPage = () => {
 
     try {
       const res = await signInWithEmailAndPassword(auth, email, password);
+      const userId = res.user.uid;
 
-      console.log(res);
+      setUser(userId);
+      navigation.navigate("Home");
     } catch (error) {
       console.log(error);
     }

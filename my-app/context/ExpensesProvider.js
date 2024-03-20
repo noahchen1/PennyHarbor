@@ -6,11 +6,20 @@ const ExpensesContext = createContext();
 export const useExpenses = () => useContext(ExpensesContext);
 
 export const ExpensesProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [expenseCategory, setExpenseCategory] = useState([]);
   const [date, setDate] = useState(new Date());
   const [dateDisplay, setDateDisplay] = useState("Day");
+
+  const createNewAcct = async (email) => {
+    const URL = `${BASE_URL}/account`;
+
+    const res = await axios.post(URL, { email: email });
+
+    return res;
+  };
 
   const getExpense = async (user) => {
     const URL = `${BASE_URL}/expenses/${user}`;
@@ -61,6 +70,9 @@ export const ExpensesProvider = ({ children }) => {
         setDateDisplay,
         expenseCategory,
         setExpenseCategory,
+        createNewAcct,
+        user,
+        setUser
       }}
     >
       {children}

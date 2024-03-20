@@ -6,6 +6,7 @@ import CategoriesPage from "./screens/addCategory/Page";
 import AddExpensePage from "./screens/addExpense/Page";
 import ExpenseCategoryPage from "./screens/expenseCategory/Page";
 import SignInPage from "./screens/authScreen/signin/Page";
+import RegistrationPage from "./screens/authScreen/registration/Page";
 import { ExpensesProvider } from "./context/ExpensesProvider";
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -55,6 +56,11 @@ export default function App() {
                   headerTitle: "",
                   drawerItemStyle: { height: 0 },
                 }}
+              />
+              <Drawer.Screen
+                name="Register"
+                component={RegistrationPage}
+                options={{ headerTitle: "" }}
               />
             </>
           ) : (

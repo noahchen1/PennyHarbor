@@ -2,7 +2,6 @@ const { client } = require("../db");
 
 const addAccount = async (req, res) => {
   const { email } = req.body;
-  console.log(email);
 
   try {
     const insertQuery = {

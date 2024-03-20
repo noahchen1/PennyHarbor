@@ -12,6 +12,7 @@ const { getExpenses } = require("./routes/getExpenses");
 const { addCategory } = require("./routes/addCategory");
 const { getCategories } = require("./routes/getCategories");
 const { addAccount } = require("./routes/addAccount");
+const { getAccounts } = require("./routes/getAccounts");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.post("/add", addExpense);
 app.get("/expenses/:username", getExpenses);
 app.post("/category", addCategory);
 app.get("/category/:username", getCategories);
+app.get("/account", getAccounts);
 app.post("/account", addAccount);
 
 const startServer = async () => {

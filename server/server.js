@@ -11,8 +11,7 @@ const { addExpense } = require("./routes/addExpense");
 const { getExpenses } = require("./routes/getExpenses");
 const { addCategory } = require("./routes/addCategory");
 const { getCategories } = require("./routes/getCategories");
-const { register } = require("./routes/register");
-const { signin } = require("./routes/signin");
+const { addAccount } = require("./routes/addAccount");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,8 +23,7 @@ app.post("/add", addExpense);
 app.get("/expenses/:username", getExpenses);
 app.post("/category", addCategory);
 app.get("/category/:username", getCategories);
-app.post("/register", register);
-app.post("/signin", signin);
+app.post("/account", addAccount);
 
 const startServer = async () => {
   await connectDB();

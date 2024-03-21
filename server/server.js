@@ -25,9 +25,9 @@ app.use(bodyParser.json());
 // app.use(cors(allowedOrigins));
 
 app.post("/add", addExpense);
-app.get("/expenses/:username", getExpenses);
+app.get("/expenses/:email", getExpenses);
 app.post("/category", addCategory);
-app.get("/category/:username", getCategories);
+app.get("/category/:email", getCategories);
 app.get("/account", getAccounts);
 app.post("/account", addAccount);
 app.post("/request", sendRequest);

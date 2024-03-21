@@ -14,6 +14,10 @@ const { getCategories } = require("./routes/getCategories");
 const { addAccount } = require("./routes/addAccount");
 const { getAccounts } = require("./routes/getAccounts");
 
+const { sendRequest } = require("./routes/sendRequest");
+const { getRequests } = require("./routes/getRequests");
+const { approveRequest } = require("./routes/approveRequest");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -26,6 +30,9 @@ app.post("/category", addCategory);
 app.get("/category/:username", getCategories);
 app.get("/account", getAccounts);
 app.post("/account", addAccount);
+app.post("/request", sendRequest);
+app.get("/request/:email", getRequests);
+app.post("/request/approve", approveRequest);
 
 const startServer = async () => {
   await connectDB();

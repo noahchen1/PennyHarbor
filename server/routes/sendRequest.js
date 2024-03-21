@@ -1,16 +1,18 @@
 const { client } = require("../db");
 
-const snedRequest = async (req, res) => {
-  const { account_id, shared_with_user_email } = req.body;
+const sendRequest = async (req, res) => {
+  const { account_id, shared_with_email } = req.body;
+  const status = false;
 
   try {
     const insertQuery = {
-      text: "INSERT INTO permission (account_id, shared_with_user_email) VALUES ($1, $2) RETURNING *",
-      value: [account_id, shared_with_user_email],
+      text: "INSERT INTO permissions (expense_creator_account_id, shared_with_email, permission) VALUES ($1, $2, $3) RETURNING *",
+      values: [account_id, shared_with_email, status],
     };
 
     const selectQuery = {
-      text: `SELECT * FROM permission WHERE shared_with_user_email = ${shared_with_user_email}`,
+      text: `SELECT * FROM permissions WHERE shared_with_email = $1`,
+      values: [shared_with_email],
     };
 
     const result = await client.query(insertQuery);
@@ -18,7 +20,11 @@ const snedRequest = async (req, res) => {
 
     res.json({ success: true, expenses: content.rows });
   } catch (error) {
-    console.error("Error adding expense", error);
-    res.status(500).json({ success: false, error: "Failed to add expense" });
+    console.error("Error sending request", error);
+    res
+      .status(500)
+      .json({ success: false, error: `Failed to send request: ${error}` });
   }
 };
+
+module.exports = { sendRequest };

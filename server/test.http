@@ -46,3 +46,36 @@ Content-Type: application/json
     "email": "nuoya1996@gmail.com",
     "password": "sr19960309"
 }
+
+###
+POST http://localhost:3000/account
+Content-Type: application/json
+
+{
+    "email": "nuoya1996@gmail.com",
+    "name": "test_account2"
+}
+
+###
+POST http://localhost:3000/request
+Content-Type: application/json
+
+{
+    "account_id": "8",
+    "shared_with_email": "joann@gmail.com"
+}
+
+###
+GET http://localhost:3000/request/joann@gmail.com
+Content-Type: application/json
+
+###
+POST http://localhost:3000/request/approve
+Content-Type: application/json
+
+{
+    "requestId": 1
+}
+
+
+

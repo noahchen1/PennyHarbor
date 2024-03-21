@@ -1,16 +1,17 @@
 const { client } = require("../db");
 
 const addAccount = async (req, res) => {
-  const { email } = req.body;
+  const { email, name } = req.body;
 
   try {
     const insertQuery = {
-      text: "INSERT INTO useraccount (email) VALUES ($1) RETURNING *",
-      values: [email],
+      text: "INSERT INTO useraccount (email, name) VALUES ($1, $2) RETURNING *",
+      values: [email, name],
     };
 
     const selectQuery = {
-      text: "SELECT * FROM useraccount",
+      text: "SELECT * FROM useraccount WHERE email = $1",
+      values: [email],
     };
 
     const result = await client.query(insertQuery);
@@ -22,7 +23,7 @@ const addAccount = async (req, res) => {
     console.error("Error adding account", error);
     res
       .status(500)
-      .json({ success: false, error: `failed to add catagory: ${error}` });
+      .json({ success: false, error: `failed to add account: ${error}` });
   }
 };
 

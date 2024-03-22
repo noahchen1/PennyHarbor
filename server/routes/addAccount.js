@@ -18,7 +18,7 @@ const addAccount = async (req, res) => {
 
     const content = await client.query(selectQuery);
 
-    res.json({ success: true, expense: content.rows });
+    res.json({ success: true, accounts: content.rows });
   } catch (error) {
     console.error("Error adding account", error);
     res

@@ -8,7 +8,7 @@ import getSelectedExpenses from "../../../util/getSelectedExpenses";
 import getGroupExpenses from "../../../util/getGroupExpenses";
 import PLACEHOLDER_EXPENSE from "../../../constants/placeholder_expense";
 
-const ExpensesPage = () => {
+const ExpensesPage = ({ selectedAccount }) => {
   const { expenses, date, dateDisplay } = useExpenses();
   const [expenseData, setExpenseData] = useState({
     currentExpenses: [],
@@ -19,7 +19,7 @@ const ExpensesPage = () => {
   const total = expenses.reduce((acc, expense) => acc + expense.value, 0);
 
   useEffect(() => {
-    const selectedExpenses = getSelectedExpenses(expenses, date, dateDisplay);
+    const selectedExpenses = getSelectedExpenses(expenses, date, dateDisplay); 
     const noExpense = !selectedExpenses.length;
 
     if (noExpense) {
@@ -45,12 +45,7 @@ const ExpensesPage = () => {
       <Wheel expenses={expenseData.currentExpenses} />
       {expenseData.expenseFound &&
         Object.keys(expenseData.groupExpenses).map((key, index) => (
-          <Catagory
-            expenseArr={expenseData.groupExpenses[key]}
-            category={key}
-            total={total}
-            key={index}
-          />
+          <Catagory expenseArr={expenseData.groupExpenses[key]} category={key} total={total} key={index} />
         ))}
     </ScrollView>
   );

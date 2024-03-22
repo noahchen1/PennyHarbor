@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, StyleSheet, Text } from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useExpenses } from "../../../context/ExpensesProvider";
+import { useAuth } from "../../../context/AuthProvider";
 
 const RegistrationPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const { createNewAcct } = useExpenses();
+  const { createNewAcct} = useAuth();
 
   const handleSignUp = () => {
     const auth = getAuth();
@@ -15,9 +15,7 @@ const RegistrationPage = ({ navigation }) => {
       .then(userCredential => {
         const user = userCredential.user;
 
-        console.log("User signed up:", user.uid);
-        const res = createNewAcct(email);
-        console.log(res);
+        createNewAcct(email);
       })
       .catch(error => {
         const errorCode = error.code;

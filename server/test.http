@@ -2,15 +2,17 @@ POST http://localhost:3000/add
 Content-Type: application/json
 
 {
-    "username": "Noah",
-    "text": "Travel",
-    "value": 550,
+    "username": "joann@gmail.com",
+    "text": "test account2 expense2",
+    "value": 150,
     "color": "#a83254",
-    "date": "2024-02-29"
+    "date": "2024-03-21",
+    "comment": "no comment",
+    "account": 13
 }
 
 ###
-GET http://localhost:3000/expenses/Joann
+GET http://localhost:3000/expenses/joann@gmail.com
 Content-Type: application/json
 
 ###
@@ -52,7 +54,7 @@ POST http://localhost:3000/account
 Content-Type: application/json
 
 {
-    "email": "nuoya1996@gmail.com",
+    "email": "joann@gmail.com",
     "name": "test_account2"
 }
 
@@ -61,7 +63,7 @@ POST http://localhost:3000/request
 Content-Type: application/json
 
 {
-    "account_id": "8",
+    "account_id": "12",
     "shared_with_email": "joann@gmail.com"
 }
 
@@ -74,7 +76,7 @@ POST http://localhost:3000/request/approve
 Content-Type: application/json
 
 {
-    "requestId": 1
+    "requestId": 6
 }
 
 

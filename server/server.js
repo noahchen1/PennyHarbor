@@ -28,7 +28,7 @@ app.post("/add", addExpense);
 app.get("/expenses/:email", getExpenses);
 app.post("/category", addCategory);
 app.get("/category/:email", getCategories);
-app.get("/account", getAccounts);
+app.get("/account/:email", getAccounts);
 app.post("/account", addAccount);
 app.post("/request", sendRequest);
 app.get("/request/:email", getRequests);

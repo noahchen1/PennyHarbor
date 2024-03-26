@@ -17,7 +17,7 @@ export const ExpensesProvider = ({ children }) => {
 
     const res = await axios.get(URL);
 
-    setExpenses(res.data.expenses);
+    setExpenses([res.data.expenses]);
   };
 
   const addExpense = async (data) => {

@@ -54,8 +54,8 @@ POST http://localhost:3000/account
 Content-Type: application/json
 
 {
-    "email": "joann@gmail.com",
-    "name": "test_account2"
+    "email": "joann2@gmail.com",
+    "name": "test_account1"
 }
 
 ###

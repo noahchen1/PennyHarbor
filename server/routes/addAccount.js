@@ -2,7 +2,7 @@ const { client } = require("../db");
 
 const addAccount = async (req, res) => {
   const { email, name } = req.body;
-
+  
   try {
     const insertQuery = {
       text: "INSERT INTO useraccount (email, name) VALUES ($1, $2) RETURNING *",
@@ -13,7 +13,7 @@ const addAccount = async (req, res) => {
       text: "SELECT * FROM useraccount WHERE email = $1",
       values: [email],
     };
-
+    
     const result = await client.query(insertQuery);
 
     const content = await client.query(selectQuery);

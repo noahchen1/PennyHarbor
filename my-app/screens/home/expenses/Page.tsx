@@ -8,7 +8,7 @@ import getSelectedExpenses from "../../../util/getSelectedExpenses";
 import getGroupExpenses from "../../../util/getGroupExpenses";
 import PLACEHOLDER_EXPENSE from "../../../constants/placeholder_expense";
 
-const ExpensesPage = ({ selectedAccount }) => {
+const ExpensesPage = () => {
   const { expenses, date, dateDisplay } = useExpenses();
   const [expenseData, setExpenseData] = useState({
     currentExpenses: [],
@@ -16,10 +16,10 @@ const ExpensesPage = ({ selectedAccount }) => {
     expenseFound: false,
   });
 
-  const total = expenses.reduce((acc, expense) => acc + expense.value, 0);
+  const total = expenses?.reduce((acc, expense) => acc + expense.value, 0);
 
   useEffect(() => {
-    const selectedExpenses = getSelectedExpenses(expenses, date, dateDisplay); 
+    const selectedExpenses = getSelectedExpenses(expenses, date, dateDisplay);     
     const noExpense = !selectedExpenses.length;
 
     if (noExpense) {

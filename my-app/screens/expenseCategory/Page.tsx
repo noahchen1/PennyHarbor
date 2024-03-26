@@ -21,7 +21,6 @@ const ExpenseCategoryPage = () => {
   const category = expenseCategory[0].text;
   const iconData = categories.find((obj) => obj.category === category);
 
-  console.log(iconData);
 
   return (
     <>

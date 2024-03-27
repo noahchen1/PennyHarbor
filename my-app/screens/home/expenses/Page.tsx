@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import { useExpenses } from "../../../context/ExpensesProvider";
+import { useAuth } from "../../../context/AuthProvider";
 import React, { useEffect, useState } from "react";
 import { Text, ScrollView } from "react-native";
 import Wheel from "../../../components/Wheel";
@@ -10,17 +11,21 @@ import PLACEHOLDER_EXPENSE from "../../../constants/placeholder_expense";
 
 const ExpensesPage = () => {
   const { expenses, date, dateDisplay } = useExpenses();
+  const { selectedAccount } = useAuth();
+
+
+
   const [expenseData, setExpenseData] = useState({
     currentExpenses: [],
     groupExpenses: {},
     expenseFound: false,
   });
 
-  const total = expenses?.reduce((acc, expense) => acc + expense.value, 0);
+  const total = expenses[selectedAccount?.id]?.reduce((acc, expense) => acc + expense.value, 0);
 
   useEffect(() => {
-    const selectedExpenses = getSelectedExpenses(expenses, date, dateDisplay);     
-    const noExpense = !selectedExpenses.length;
+    const selectedExpenses = getSelectedExpenses(expenses, date, dateDisplay, selectedAccount);     
+    const noExpense = !selectedExpenses?.length;
 
     if (noExpense) {
       setExpenseData({

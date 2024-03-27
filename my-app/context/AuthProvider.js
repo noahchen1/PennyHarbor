@@ -8,13 +8,16 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [accounts, setAccounts] = useState([]);
+  const [selectedAccount, setSelectedAccount] = useState();
 
   const getAccounts = async () => {
     const URL = `${BASE_URL}/account/${user}`;
 
     const res = await axios.get(URL);
+    const accounts = res.data.accounts;
 
-    setAccounts(res.data.accounts);
+    setAccounts(accounts);
+    setSelectedAccount(accounts[0]);
   };
 
   const createNewAcct = async (data) => {
@@ -34,6 +37,8 @@ export const AuthProvider = ({ children }) => {
         accounts,
         setAccounts,
         getAccounts,
+        selectedAccount,
+        setSelectedAccount,
       }}
     >
       {children}

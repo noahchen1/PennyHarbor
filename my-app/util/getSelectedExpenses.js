@@ -1,4 +1,6 @@
-const getSelectedExpenses = (expenses, date, dateDisplay) => {
+const getSelectedExpenses = (expenses, date, dateDisplay, selectedAccount) => {
+  const currentExpenses = expenses[selectedAccount?.id];
+
   const getStartOfWeek = (date) => {
     const startOfWeek = new Date(date);
     startOfWeek.setDate(date.getDate() - date.getDay());
@@ -19,7 +21,7 @@ const getSelectedExpenses = (expenses, date, dateDisplay) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0);
   };
 
-  const selectedExpenses = expenses.filter((expense) => {
+  const selectedExpenses = currentExpenses?.filter((expense) => {
     const timestamp = new Date(expense.date);
 
     switch (dateDisplay) {

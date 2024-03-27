@@ -13,29 +13,28 @@ const Tab = createMaterialTopTabNavigator();
 
 const HomePage = () => {
   const { getExpense } = useExpenses();
-  const { accounts, user, getAccounts } = useAuth();
-  const [selectedAccount, setSelectedAccount] = useState(accounts[0]);
+  const { accounts, user, getAccounts, selectedAccount, setSelectedAccount } = useAuth();
 
   useEffect(() => {
     try {
       getAccounts();
       getExpense(user);
+
     } catch (err) {
       console.error("Error fetching expenses:", err);
     }
   }, []);
-  
-  
+
   return (
     <View>
-      {/* <Picker
+      <Picker
         selectedValue={selectedAccount}
         onValueChange={(value) => setSelectedAccount(value)}
       >
         {accounts.map((account, index) => (
           <Picker.Item key={index} label={account.name} value={account} />
         ))}
-      </Picker> */}
+      </Picker>
       <Tab.Navigator>
         {/* <Tab.Screen name="Expenses">
           {() => <ExpensesPage selectedAccount={selectedAccount} />}

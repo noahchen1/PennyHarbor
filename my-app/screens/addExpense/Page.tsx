@@ -11,6 +11,7 @@ import {
 
 import { TextInput } from "react-native-gesture-handler";
 import { useExpenses } from "../../context/ExpensesProvider";
+import { useAuth } from "../../context/AuthProvider";
 import { useNavigation } from "@react-navigation/native";
 import formatDateString from "../../util/formatDateString";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -19,9 +20,8 @@ import Icon from "../../components/Icon";
 
 const AddExpensePage = () => {
   const navigation = useNavigation();
-  const user = "Noah";
-
   const { addExpense, getCategories, categories } = useExpenses();
+  const { user, selectedAccount } = useAuth();
 
   const [expenseAmt, setExpenseAmt] = useState("");
   const [expenseCategory, setExpenseCategory] = useState("");
@@ -59,7 +59,8 @@ const AddExpensePage = () => {
     const value = parseInt(expenseAmt);
     const color = expenseCategory.color;
     const date = formatDateString(expenseDate);
-    const data = new EXPENSE_DATA(username, text, value, color, date, comment);
+    const accountId = selectedAccount.id;
+    const data = new EXPENSE_DATA(username, text, value, color, date, comment, accountId);
 
     setNewData(data);
   }, [expenseAmt, expenseCategory, expenseDate, comment]);
@@ -132,7 +133,6 @@ const styles = StyleSheet.create({
   },
   categoryContainer: {
     flexDirection: "row",
-    flexWrap: "wrap",
     marginVertical: 20,
     width: "100%",
     justifyContent: "flex-start",

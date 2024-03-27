@@ -1,12 +1,12 @@
 const { client } = require("../db");
 
 const getCategories = async (req, res) => {
-  const { username } = req.params;
+  const { email } = req.params;
 
   try {
     const query = {
       text: "SELECT * FROM catagories WHERE username = $1",
-      values: [username],
+      values: [email],
     };
 
     const result = await client.query(query);

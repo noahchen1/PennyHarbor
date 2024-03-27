@@ -7,7 +7,7 @@ const Icon = ({ icon, selectedIcon, selectedColor }) => {
 
   return (
     <IconComponent
-      name={icon.name}
+      name={icon.iconname}
       size={24}
       style={[
         styles.icon,

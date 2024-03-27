@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-
+import { useAuth } from "../../context/AuthProvider";
 import { useExpenses } from "../../context/ExpensesProvider";
 
 import { ICONS_DATA } from "../../constants/icon_data";
@@ -19,8 +19,8 @@ import Icon from "../../components/Icon";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const CategoriesPage = () => {
-  const user = "Noah";
   const { addCatagory } = useExpenses();
+  const { user } = useAuth();
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedIcon, setSelectedIcon] = useState(null);
   const [category, setCategory] = useState("");
@@ -31,7 +31,7 @@ const CategoriesPage = () => {
       username: user,
       category: category,
       iconname: selectedIcon.name,
-      icontype: selectedIcon.type,
+      icontype: selectedIcon.icontype,
       color: selectedColor,
     };
 
@@ -39,10 +39,13 @@ const CategoriesPage = () => {
       !user ||
       !category ||
       !selectedIcon?.name ||
-      !selectedIcon?.type ||
+      !selectedIcon?.icontype ||
       !selectedColor
-    )
+    ) {
+      console.log('oh no!')
       return;
+
+    }
 
     await addCatagory(data);
   };

@@ -26,24 +26,14 @@ const HomePage = () => {
   }, []);
 
   return (
-    <View>
-      <Picker
-        selectedValue={selectedAccount}
-        onValueChange={(value) => setSelectedAccount(value)}
-      >
-        {accounts.map((account, index) => (
-          <Picker.Item key={index} label={account.name} value={account} />
-        ))}
-      </Picker>
-      <Tab.Navigator>
-        {/* <Tab.Screen name="Expenses">
-          {() => <ExpensesPage selectedAccount={selectedAccount} />}
-        </Tab.Screen> */}
 
-        <Tab.Screen name="Expenses" component={ExpensesPage} />
+      <Tab.Navigator>
+        <Tab.Screen name="Expenses">
+          {() => <ExpensesPage selectedAccount={selectedAccount} />}
+        </Tab.Screen>
         <Tab.Screen name="Income" component={IncomePage} />
       </Tab.Navigator>
-    </View>
+
   );
 };
 

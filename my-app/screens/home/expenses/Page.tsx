@@ -13,8 +13,6 @@ const ExpensesPage = () => {
   const { expenses, date, dateDisplay } = useExpenses();
   const { selectedAccount } = useAuth();
 
-
-
   const [expenseData, setExpenseData] = useState({
     currentExpenses: [],
     groupExpenses: {},
